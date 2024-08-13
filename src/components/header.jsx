@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import pizaaLogo from "../assets/img/pizza-logo.svg"
 import SearchComponent from "./Search";
 import SwitchComponent from "./UI-Components/Switch";

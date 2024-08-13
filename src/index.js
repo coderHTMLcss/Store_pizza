@@ -9,6 +9,7 @@ import CartPage from "./pages/CartPage";
 import "./scss/app.scss";
 import HomePage from "./pages/HomePage";
 import GlobalContext from "./context";
+import DetailPizzaPage from "./pages/DetailPizzaPage";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: "/cart",
         element: <CartPage />,
+      },
+      {
+        path: "/pizza/:id",
+        element: <DetailPizzaPage />,
       },
     ],
   },

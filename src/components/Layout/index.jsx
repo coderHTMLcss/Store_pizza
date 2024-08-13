@@ -5,9 +5,7 @@ import { AppContext } from '../../context'
 
 
 const LayoutComponent = () => {
-
     const { theme } = useContext(AppContext);
-
     return (
         <div className={`wrapper ${theme}`}>
             <HeaderComponent />

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItems } from '../../redux/slices/cartSlice';
+import { useLocation, Link } from 'react-router-dom';
 
 const typeNames = ['тонке', 'традиційне'];
 
@@ -11,6 +12,7 @@ const PizzaBlockComponent = ({ id, title, imageUrl, price, sizes, types }) => {
     const { items } = useSelector(state => state.cart);
     const item = useSelector(state => state.cart.items.find(item => item.id === id));
     const dispatch = useDispatch();
+    const { pathname } = useLocation();
 
     const addedCount = item ? item.count : 0;
     const selectedId = item?.id === activeItem;
@@ -30,32 +32,33 @@ const PizzaBlockComponent = ({ id, title, imageUrl, price, sizes, types }) => {
 
     return (
         <div className="pizza-block">
-            <img className="pizza-block__image"
-                src={imageUrl}
-                alt="Pizza" />
-            <h4 className="pizza-block__title">{title}</h4>
-            <div className="pizza-block__selector">
-                <ul>
-                    {types && types.length > 0 ? (types.map((type, index) => {
-                        return <li
-                            onClick={() => setActiveType(index)}
-                            className={activeType === index ? 'active' : ''}
-                            key={type + index}>{typeNames[type]}
-                        </li>
-                    })) : (null)}
-                </ul>
-                <ul>
-                    {sizes && sizes.length > 0 ? (sizes.map((size, index) => {
-                        return <li
-                            key={size + index}
-                            onClick={() => setActiveSize(index)}
-                            className={activeSize === index ? 'active' : ''}
-                        >
-                            {size} см
-                        </li>
-                    })) : (null)}
-                </ul>
-            </div>
+            <Link to={`/pizza/${id}`}>
+                <img className="pizza-block__image"
+                    src={imageUrl}
+                    alt="Pizza" />
+                <h4 className="pizza-block__title">{title}</h4>
+                <div className="pizza-block__selector">
+                    <ul>
+                        {types && types.length > 0 ? (types.map((type, index) => {
+                            return <li
+                                onClick={() => setActiveType(index)}
+                                className={activeType === index ? 'active' : ''}
+                                key={type + index}>{typeNames[type]}
+                            </li>
+                        })) : (null)}
+                    </ul>
+                    <ul>
+                        {sizes && sizes.length > 0 ? (sizes.map((size, index) => {
+                            return <li
+                                key={size + index}
+                                onClick={() => setActiveSize(index)}
+                                className={activeSize === index ? 'active' : ''}
+                            >
+                                {size} см
+                            </li>
+                        })) : (null)}
+                    </ul>
+                </div></Link>
             <div className="pizza-block__bottom">
                 <div className="pizza-block__price">{price}.00 грн</div>
                 <button onClick={() => handleAddItems(id)}
@@ -67,7 +70,7 @@ const PizzaBlockComponent = ({ id, title, imageUrl, price, sizes, types }) => {
                             fill="white" />
                     </svg>
                     <span >Додати</span>
-                    {items.length > 0 && selectedId && <i> {addedCount}</i>}
+                    {pathname === '/' && items.length > 0 && selectedId && <i> {addedCount}</i>}
                 </button>
             </div>
         </div >
